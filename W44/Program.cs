@@ -122,7 +122,7 @@ internal class Exercises
                 }
                 else
                 {
-                    CE.WriteLineColor(str, ConsoleColor.Cyan);
+                    CE.WriteLineColor(str + "<-", ConsoleColor.Cyan);
                 }
             }
 

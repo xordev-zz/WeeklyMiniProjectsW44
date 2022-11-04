@@ -11,6 +11,7 @@ Console.WriteLine("Björn Savander");
 Exercises exercises = new Exercises();
 exercises.w44_MiniProjectLevel4();
 
+// Excersice container
 internal class Exercises
 {
     public static ProductList productList = new ProductList();
@@ -19,6 +20,7 @@ internal class Exercises
     {
     }
 
+    // Product
     public class Product
     {
         public string Category
@@ -35,6 +37,8 @@ internal class Exercises
             Price = price;
         }
     }
+
+    // Product List
     public class ProductList
     {
         public List<Product> products = new List<Product>();
@@ -43,16 +47,19 @@ internal class Exercises
         {
         }
 
+        // Add product to list of products
         public void Add(string category, string name, int price)
         {
             products.Add(new Product(category, name, price));
         }
 
+        // Return a list ordered on "Price"
         public void GetOrderedList(ref List<Product> list)
         {
             list = products.OrderBy(o => o.Price).ToList();
         }
 
+        // Check if "name"  exist in list of products
         public bool hasName(string name)
         {
             foreach (var p in products)
@@ -66,8 +73,10 @@ internal class Exercises
         }
     }
 
+    // Menu
     public class Menu
     {
+        // Display user menu
         public void DisplayMenu()
         {
             Console.WriteLine();
@@ -79,6 +88,9 @@ internal class Exercises
             Console.WriteLine("'S'\tSearch Product");
             Console.WriteLine("'Q'\tQuit");
         }
+
+        // Asks for products to add to list of products
+        // 'q' = Quit
         public void ProductsAdd()
         {
             while (true)
@@ -101,6 +113,8 @@ internal class Exercises
             }
         }
 
+        // Display list of products on screeen
+        // "highlightName" will be != null if there is a "name" to highlight
         public void ProductsDisplay(string? highlightName = null)
         {
             Console.WriteLine();
@@ -122,16 +136,20 @@ internal class Exercises
                 }
                 else
                 {
+                    // Highlight "name"
                     CE.WriteLineColor(str + "<-", ConsoleColor.Cyan);
                 }
             }
 
+            // Calc total sum of "prices"
             int priceSum = products.Sum(o => o.Price);
             Console.WriteLine();
             Console.WriteLine($"{"Sum:",-20}{priceSum,-10}");
             Console.WriteLine("------------------------------");
         }
-
+        
+        // Search for product based
+        // Search parameter = Name
         public void ProductsSearch()
         {
             Console.WriteLine();
@@ -139,19 +157,24 @@ internal class Exercises
             Console.WriteLine("         Product Search       ");
             Console.WriteLine("------------------------------");
             Console.WriteLine("Search for a product. 'Q' = Exit");
+
             string productName = CE.StringReadNotEmpty("Enter Product Name: ").Trim();
 
+            // Check if "name" list of products
             if (productList.hasName(productName))
             {
+                // Found, display list with "name" highlighted
                 ProductsDisplay(productName);
             }
             else
             {
+                // NOT  found!
                 CE.WriteLineColor($"{productName} is Missing!", ConsoleColor.Red);
             }
         }
     }
 
+    // Mini project menu runner
     public void w44_MiniProjectLevel4()
     {
         Menu menu = new Menu();
